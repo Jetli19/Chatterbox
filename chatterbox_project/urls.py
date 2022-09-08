@@ -22,6 +22,7 @@ import chatterbox.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', chatterbox.views.hello),
+    path('hello/<s>', chatterbox.views.hello),
     #path('chatterbox/', admin.site.urls),
+    path('search/<s>',chatterbox.views.search),
 ]
