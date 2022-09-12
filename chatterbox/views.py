@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from chatterbox.models import Room, Message
 
 
+
 # sem budeme pridavat
 
 # API na hello
@@ -9,6 +10,13 @@ from chatterbox.models import Room, Message
 def hello(request, s): # request tu davam vzdy, s znaci ako string
     # return HttpResponse("HELLO WORLD!!!")
     return HttpResponse(f'HELLO, DEAR {s}!!! ')
+
+
+def home(request):
+    rooms = Room.objects.all()  # najdeme všechny místnosti
+    context = {'rooms': rooms}
+    return render(request, 'chatterbox/home.html', context)
+
 
 # API na search
 # povodne bez templates
@@ -27,13 +35,20 @@ def hello(request, s): # request tu davam vzdy, s znaci ako string
 
     return render(request, "chatterbox/search.html", context)'''
 
-#  pak sme prerobili na toto s pomocou uz search html, okial sa odkazujeme na context
+#  pak sme prerobili na toto s pomocou uz search html, odkial sa odkazujeme na context
 def search(request, s):
     rooms = Room.objects.filter(name__contains=s)  # namiesto s budeme davat uz co sa bude hladat
     messages = Message.objects.filter(body__contains=s)  # namiesto s budeme davat uz co sa bude hladat
 
     context = {'rooms': rooms, 'messages': messages}
     return render(request, "chatterbox/search.html", context)
+
+def room(request, pk):
+    room = Room.objects.filter(id=pk) # najdem miestrost pomocou ID miestnosti resp PK
+    messages = Message.objects.filter(room=pk) # zobrazi spravy v danej miestnosti
+
+    context = {'room': room,'messages': messages}
+    return render(request, "chatterbox/room.html", context)
 
 
 

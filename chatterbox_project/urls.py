@@ -20,9 +20,12 @@ from django.contrib import admin
 from django.urls import path
 import chatterbox.views
 
+
 urlpatterns = [
+    path('', chatterbox.views.home, name='home'),
     path('admin/', admin.site.urls),
     path('hello/<s>', chatterbox.views.hello),
-    #path('chatterbox/', admin.site.urls),
-    path('search/<s>',chatterbox.views.search),
+    path('search/<s>', chatterbox.views.search),
+    path('room/<str:pk>/', chatterbox.views.room, name="room")
 ]
+
