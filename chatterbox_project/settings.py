@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # dopisali sme sami, lebo robime aplikaciu chatterbox
-    'chatterbox'
+
+    # odtialto dopisujem nase aplikacie
+    'chatterbox',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +127,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# login and authentication - PRIDALI SME MY
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'

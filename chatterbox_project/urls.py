@@ -17,15 +17,25 @@ Including another URLconf
 # sem budeme pridavat
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 import chatterbox.views
 
 
 urlpatterns = [
-    path('', chatterbox.views.home, name='home'),
     path('admin/', admin.site.urls),
-    path('hello/<s>', chatterbox.views.hello),
+
+    # chatterbox aplikace, ktore sme vytvorili/vytvarame my
+    # path('cesta', <views>, name='name')
+    path('', chatterbox.views.home, name='home'),
+    path('hello/<s>', chatterbox.views.hello), # hlada v zlozke chatterbox/views a konkretnu funkciu/aplikaciu
     path('search/<s>', chatterbox.views.search),
-    path('room/<str:pk>/', chatterbox.views.room, name="room")
+    path('room/<str:pk>/', chatterbox.views.room, name="room"),
+    path('rooms/', chatterbox.views.rooms, name='rooms'),
+
+    # accounts aplikace
+    path("accounts/", include("accounts.urls")), # vygeneruje signup
+    path("accounts/", include("django.contrib.auth.urls")), #vsetky ostatne authorizacne urls
+
+    #path("__reload__/", include("django_browser_reload.urls"))
 ]
 
