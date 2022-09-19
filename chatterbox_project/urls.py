@@ -32,10 +32,14 @@ urlpatterns = [
     path('room/<str:pk>/', chatterbox.views.room, name="room"),
     path('rooms/', chatterbox.views.rooms, name='rooms'),
 
+    #create room
+    path('create_room/', chatterbox.views.create_room, name="create_room"),
+    # path('create_room/new_room/', chatterbox.views.new_room, name='new_room'), # toto riesi create_room/
+
     # accounts aplikace
     path("accounts/", include("accounts.urls")), # vygeneruje signup
     path("accounts/", include("django.contrib.auth.urls")), #vsetky ostatne authorizacne urls
 
-    #path("__reload__/", include("django_browser_reload.urls"))
+    path("__reload__/", include("django_browser_reload.urls"))
 ]
 

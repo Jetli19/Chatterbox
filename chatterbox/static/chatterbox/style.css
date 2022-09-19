@@ -1,7 +1,6 @@
-/* common styles*/
-
+/* common styles */
 body {
-    background: lightblue;
+    background: #add8e6;
 }
 
 header {
@@ -15,7 +14,7 @@ nav ul {
 nav li {
     display: inline-block;
     margin: -3px;
-    /* alebo
+    /*
     margin-right: 10px;
     margin-left: 10px;
     */
@@ -23,85 +22,105 @@ nav li {
     padding: 10px;
 }
 
-/* home.html*/
-
-.welcome{
-    font-size: 32px;
-}
-
-.user_hello{
+/* home.html */
+.user_hello {
     font-size: 32px;
     padding-bottom: 15px;
 }
 
-/* list-of-rooms.html */
+.welcome {
+    font-size: 32px;
+}
 
+/* rooms.html */
 .list-of-rooms {
     font-size: 32px;
 }
 
-.rooms-list ul{
+.rooms-list ul {
     list-style: none;
 }
 
 /* room.html */
-
-room-descr{
+.room-descr {
     font-size: 20px;
     margin-bottom: 20px;
-
 }
 
 .message-form {
-    padding: 10px;
+    margin-bottom: 20px;
 }
 
-input[type=text]{
+input[type=text] {
     width: 400px;
 }
 
-input[type=submit]{
+input[type=submit] {
     width: 50px;
 }
 
-.message-box{}
+.messages-box {
+}
 
-.other-message{
-    width: 75%;
+.other-message-body {
+    background: white;
+    width: 80%;
     border: solid 3px #4432a8;
     border-radius: 10px;
-    background: white;
     padding: 10px;
     margin-bottom: 10px;
 }
-.my-message{
+
+.my-message {
+
+}
+
+.my-message-info {
+    font-size: 14px;
+    width: 20%;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.other-message-info {
+    font-size: 14px;
+    width: 20%;
+}
+
+.message-user {
+    font-weight: bold;
+}
+
+.message-time {
+    font-style: italic;
+}
+
+.my-message-body {
     background: white;
-    width: 75%;
+    width: 80%;
     border: solid 3px #b81a51;
     border-radius: 10px;
     padding: 10px;
+    margin-right: 0;
     margin-bottom: 10px;
     margin-left: auto;
-    margin-right: 0;
 }
 
-/* create-room.html */
-
-.form-name{
-    padding: 10px;
+/* create_room.html */
+.form-name {
+    margin-bottom: 15px;
 }
 
-.label{
-    width: 100px;
-    float: left;
+.label {
+    width: 90px;
+    float:left;
 }
 
-.submit{
-    float: left;
+.submit {
+    margin-left: 90px;
 }
 
-/* Login-page.html */
-
+/* login.html */
 .form-row {
     margin-bottom: 15px;
 }

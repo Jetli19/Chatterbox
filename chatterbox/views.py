@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect
 from chatterbox.models import Room, Message
 
 
@@ -47,18 +47,47 @@ def search(request, s):
 
 @login_required
 def room(request, pk):
-    room = Room.objects.get(id=pk) # najdem miestrost pomocou ID miestnosti resp PK
+    room = Room.objects.get(id=pk) # najde miestnost pomocou ID miestnosti resp PK
     messages = Message.objects.filter(room=pk) # zobrazi spravy v danej miestnosti
+
+    # pokud zadame novou spravu, musim ju spracovat
+    if request.method == 'POST': # ak odoslem spravu, pouzije sa prikaz POST z room.html
+        # odosle sa sprava, kde bude prihlaseny user, v aktualnej roomke a telo textu
+        body = request.POST.get ('body').strip() # osetri nam aby nesli odoslat prazdne spravy pripadne s medzernikom
+        if len(body) > 0:
+            message = Message.objects.create(
+                user = request.user,
+                room = room,
+                body = body,
+            )
+        return HttpResponseRedirect(request.path_info) # refresh stranky, aby sa sprava zobrazila
 
     context = {'room': room,'messages': messages}
     return render(request, "chatterbox/room.html", context)
 
-@login_required # zakaze zobrazenie pre neprihlasenych users
+@login_required # zakaze zobrazenie pre neprihlasenych user
 def rooms(request):
     rooms = Room.objects.all()
+
     context = {'rooms': rooms}
     return render(request, 'chatterbox/rooms.html', context)
 
+
+
+@login_required
+def create_room(request):
+    if request.method == 'POST':
+        name = request.POST.get('name').strip()
+        descr = request.POST.get('descr').strip()
+        if len(name) > 0 and len(descr) > 0:
+            room = Room.objects.create(
+                name=name,
+                description=descr
+            )
+
+            return redirect('room', pk=room.id)
+
+    return render(request, 'chatterbox/create_room.html')
 
 
 
