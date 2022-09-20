@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.forms import ModelForm
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect
 from chatterbox.models import Room, Message
 
@@ -7,6 +8,10 @@ from chatterbox.models import Room, Message
 # sem budeme pridavat
 
 # API na hello
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import UpdateView
+
 
 def hello(request, s): # request tu davam vzdy, s znaci ako string
     # return HttpResponse("HELLO WORLD!!!")
@@ -81,13 +86,35 @@ def create_room(request):
         descr = request.POST.get('descr').strip()
         if len(name) > 0 and len(descr) > 0:
             room = Room.objects.create(
+                host=request.user,
                 name=name,
                 description=descr
+
             )
 
             return redirect('room', pk=room.id)
 
     return render(request, 'chatterbox/create_room.html')
 
+@login_required
+def delete_room(request, pk):
+    room = Room.objects.get(id=pk)
+    room.delete()
 
+    return redirect('rooms')
 
+# formular
+# implemantovane priamo v Django
+# tu nemusime davat metod decorator, lebo sa pouziva v EditRoom a tam je to zadefinovane
+class RoomEditForm(ModelForm):
+
+    class Meta:
+        model = Room
+        fields = '__all__'
+
+@method_decorator(login_required, name='dispatch') # uz nefunguje ked dame @login_required
+class EditRoom(UpdateView):
+    template_name = 'chatterbox/edit_room.html'
+    model = Room
+    form_class = RoomEditForm # prepoji ma z formularom hore
+    success_url = reverse_lazy('home') # takto vyzera prikaz

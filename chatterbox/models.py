@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 class Room(models.Model):
-    # host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True) # pomoze nam identifikovat kto vytvoril roomku
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     # participants = models.ManyToManyField(

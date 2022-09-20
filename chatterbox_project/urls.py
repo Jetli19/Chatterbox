@@ -36,6 +36,9 @@ urlpatterns = [
     path('create_room/', chatterbox.views.create_room, name="create_room"),
     # path('create_room/new_room/', chatterbox.views.new_room, name='new_room'), # toto riesi create_room/
 
+    path('delete_room/<str:pk>/', chatterbox.views.delete_room, name='delete_room'),
+    path('edit_room/<pk>/', chatterbox.views.EditRoom.as_view(), name='edit_room'),
+
     # accounts aplikace
     path("accounts/", include("accounts.urls")), # vygeneruje signup
     path("accounts/", include("django.contrib.auth.urls")), #vsetky ostatne authorizacne urls
