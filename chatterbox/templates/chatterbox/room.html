@@ -8,10 +8,11 @@
         Description: {{ room.description }}
 
     <div class="message-form">
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data" >
             {% csrf_token %}
             <label for="body">Message: </label>
             <textarea name="body" id="body" rows="1" cols="100"> </textarea>
+            <input type="file" name="upload" accept="image/*" <!-- dovoli vklada aj subor, resp obrazok-->
             <input type="submit" value="Send">
         </form>
     </div>
@@ -25,6 +26,11 @@
                     <span class="message-time">{{ message.created }}</span>
                 </div>
                 <div class="my-message-body">{{ message.body }}</div>
+                {% if message.file %} <!-- zobrazi file/obrazok -->
+                    <div class="my-message-file">
+                        <a href="{{ message.file }}"><img src="{{ message.file }}" width="50px">
+                    </div>
+                {% endif %}
             </div>
         {% else %}
             <div class="other-message">
@@ -33,6 +39,11 @@
                     <span class="message-time">{{ message.created }}</span>
                 </div>
                 <div class="other-message-body">{{ message.body }}</div>
+                {% if message.file %} <!-- zobrazi file/obrazok -->
+                    <div class="other-message-file">
+                        <a href="{{ message.file }}"><img src="{{ message.file }}" width="50px">
+                    </div>
+                {% endif %}
             </div>
         {% endif %}
     {% endfor %}

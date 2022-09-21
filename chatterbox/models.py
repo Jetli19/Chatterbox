@@ -28,9 +28,10 @@ class Room(models.Model):
 
 
 class Message(models.Model):
-    body = models.TextField()
+    body = models.TextField(null=False, blank=False)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    file = models.TextField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
