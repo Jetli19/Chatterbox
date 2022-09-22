@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path,include
 import chatterbox.views
-
+import profiles.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +32,12 @@ urlpatterns = [
     path('search/', chatterbox.views.search, name='search'),
     path('room/<str:pk>/', chatterbox.views.room, name="room"),
     path('rooms/', chatterbox.views.rooms, name='rooms'),
+
+    #PROFILES APLIKACE
+    path('users/', profiles.views.profiles_list, name='profiles'),
+    path('user/<pk>/', profiles.views.user_profile, name='profile'),
+    path('edituser/<pk>/', profiles.views.EditProfile.as_view(), name='editprofile'),
+
 
     #create room
     path('create_room/', chatterbox.views.create_room, name="create_room"),

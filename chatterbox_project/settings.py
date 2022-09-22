@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # odtialto dopisujem nase aplikacie
     'chatterbox',
     'accounts',
+    'profiles',
 ]
 
 MIDDLEWARE = [
